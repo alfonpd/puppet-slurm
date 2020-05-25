@@ -70,6 +70,7 @@
 #           The level of detail to provide the Slurm Database Daemon's logs.
 # @param debugflags         [String ]     Default: []
 #           in ['DB_ARCHIVE','DB_ASSOC','DB_EVENT','DB_JOB','DB_QOS','DB_QUERY','DB_RESERVATION','DB_RESOURCE','DB_STEP','DB_USAGE','DB_WCKEY']
+# @param manage_install_mysql [Boolean]   Default: true
 # @param storagehost        [String]      Default: $::hostname
 # @param storagebackuphost  [String]      Default: ''
 # @param storageloc         [String]      Default: 'slurm'
@@ -124,6 +125,8 @@ class slurm::slurmdbd(
   $purgesuspendafter          = undef,
   $purgetxnafter              = undef,
   $purgeusageafter            = undef,
+
+  Boolean $manage_install_mysql     = true  
   String  $storagehost        = $slurm::params::storagehost,
   String  $storagebackuphost  = $slurm::params::storagebackuphost,
   String  $storageloc         = $slurm::params::storageloc,
@@ -155,28 +158,30 @@ inherits slurm
 
   # [Eventually] bootstrap the MySQL DB
   if $storagetype == 'mysql' {
-    # you now need to  allow remote access from a different host rather than
-    # localhost within /etc/my.cnf.d/server.cnf i.e. $mysql::server::config_file
-    # i.e. comment the line
-    # [mysqld]
-    # ...
-    # bind-address = 127.0.0.1
-    if $storagehost != 'localhost' {
-      $bind_setting = $ensure ? {
-        'present' => '0.0.0.0',
-        default   => '127.0.0.1',
+    if $manage_install_mysql {
+      # you now need to  allow remote access from a different host rather than
+      # localhost within /etc/my.cnf.d/server.cnf i.e. $mysql::server::config_file
+      # i.e. comment the line
+      # [mysqld]
+      # ...
+      # bind-address = 127.0.0.1
+      if $storagehost != 'localhost' {
+        $bind_setting = $ensure ? {
+          'present' => '0.0.0.0',
+          default   => '127.0.0.1',
+        }
       }
-    }
-    class { '::mysql::server':
-      override_options => {
-        'mysqld' => {
-          'bind-address' => $bind_setting,
+      class { '::mysql::server':
+        override_options => {
+          'mysqld' => {
+            'bind-address' => $bind_setting,
+          },
         },
-      },
+      }
+
+      include ::mysql::server::account_security
     }
-
-    include ::mysql::server::account_security
-
+    
     mysql::db { $storageloc:
       user     => $storageuser,
       password => $storagepass,
