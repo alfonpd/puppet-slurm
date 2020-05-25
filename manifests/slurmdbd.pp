@@ -126,7 +126,7 @@ class slurm::slurmdbd(
   $purgetxnafter              = undef,
   $purgeusageafter            = undef,
 
-  Boolean $manage_install_mysql     = true  
+  Boolean $manage_install_mysql     = true,
   String  $storagehost        = $slurm::params::storagehost,
   String  $storagebackuphost  = $slurm::params::storagebackuphost,
   String  $storageloc         = $slurm::params::storageloc,
