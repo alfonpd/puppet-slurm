@@ -162,7 +162,7 @@ class slurm::params {
   $enforcepartlimits       = 'ALL'
   $epilog                  = ''
   $epilogslurmctld         = ''
-  $fastschedule            = undef           # in [ 0, 1, 2]
+  $fastschedule            = -1           # in [ 0, 1, 2], -1 for ignore
   $grestypes               = []          # list of generic resources to be managed
   $healthcheckinterval     = 30
   $healthchecknodestate    = 'ANY'       # in ['ALLOC', 'ANY','CYCLE','IDLE','MIXED']
