@@ -173,6 +173,8 @@ class slurm::params {
   $jobacctgatherparams     = ''          # in [ 'NoShared', 'UsePss', 'NoOverMemoryKill']
   $jobcheckpointdir        = ''
   $jobcomphost             = ''          # machine hosting the job completion database
+  $jobcompuser             = ''          # user for job completion database
+  $jobcomppass             = ''          # password for job completion database 
   $jobcomploc              = 'slurmjobs' # where job completion records are written (DB name, filename...)
   $jobcomptype             = 'none'      # in ["none", "elasticsearch", "filetxt", "mysql", "script"]
   $jobcontainertype        = 'none'      # In ['cncu', 'none'] (CNCU = Compute Node Clean Up on Cray)
