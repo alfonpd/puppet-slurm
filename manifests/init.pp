@@ -146,6 +146,10 @@
 #            machine hosting the job completion database
 # @param jobcomploc               [String]      Default: 'slurmjobs'
 #           where job completion records are written (DB name, filename...)
+# @param jobcompuser              [String]      Default: ''
+#            user for the job completion database
+# @param jobcomppass              [String]      Default: ''
+#            password for the job completion database
 # @param jobcomptype              [String]      Default: 'none'
 #           Elligible values in ["none", "elasticsearch", "filetxt", "mysql", "script"]
 # @param jobcontainertype         [String]      Default: 'none'
@@ -500,6 +504,8 @@ class slurm(
   String  $jobacctgatherparams            = $slurm::params::jobacctgatherparams,
   String  $jobcheckpointdir               = $slurm::params::jobcheckpointdir,
   String  $jobcomphost                    = $slurm::params::jobcomphost,
+  String  $jobcompuser                    = $slurm::params::jobcompuser,
+  String  $jobcomppass                    = $slurm::params::jobcomppass,
   String  $jobcomploc                     = $slurm::params::jobcomploc,
   String  $jobcomptype                    = $slurm::params::jobcomptype,
   String  $jobcontainertype               = $slurm::params::jobcontainertype,
