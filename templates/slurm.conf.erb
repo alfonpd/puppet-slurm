@@ -265,7 +265,7 @@ StateSaveLocation=<%= scope['slurm::statesavelocation'] %>
 # - Backfill
 # - job priority
 ###
-<% if scope['slurm::fastschedule']? -%>
+<% if !scope['slurm::fastschedule'].empty? -%>
 FastSchedule=<%= scope['slurm::fastschedule'] %>
 <% end -%>
 #SchedulerTimeSlice=30
