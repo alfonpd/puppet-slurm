@@ -91,10 +91,21 @@
 #
 # @param accountingstoragehost    [String]      Default: $:hostname
 # @param accountingstoragetres    [String]      Default: ''
-# @param acct_gatherenergytype    [String]      Default: 'none'
+# @param acctgatherenergytype    [String]      Default: 'none'
 #          Identifies the plugin to be used for energy consumption accounting
 #          Elligible values in [ 'none', 'ipmi', 'rapl' ]
-# @paraù acct_storageenforce      [Array]       Default: ['qos', 'limits', 'associations']
+# @param acctgatherfilesystemtype [String]      Default: 'none'
+#          plugin to be used for filesystem traffic accounting.
+#          Elligible values in [ 'none', 'lustre' ]
+# @param acctgatherinfinibandtype      [String]       Default: 'none'
+#          Identifies the plugin to be used for infiniband network traffic
+#          accounting.
+#          Elligible values in [ 'none', 'ofed' ]
+# @param acctgatherprofiletype    [String]      Default: 'none'
+#          Plugin to be used for detailed job profiling.
+#          Require to define acct_gather.conf for non-none values
+#          Elligible values in [ 'none', 'hdf5', 'influxdb' ]
+# @param acct_storageenforce      [Array]       Default: ['qos', 'limits', 'associations']
 #          What level of association-based enforcement to impose on job submissions.
 # @param authtype                 [String]      Default: 'munge'
 #          Elligible values in [ 'none', 'munge' ]
@@ -463,8 +474,10 @@ class slurm(
   # Main configuration paramaters
   #
   Array   $acct_storageenforce            = $slurm::params::acct_storageenforce,
-  String  $acct_gatherenergytype          = $slurm::params::acct_gatherenergytype,
-  String  $configdir                      = $slurm::params::configdir,
+  String  $acctgatherenergytype           = $slurm::params::acctgatherenergytype,
+  String  $acctgatherfilesystemtype       = $slurm::params::acctgatherfilesystemtype,
+  String  $acctgatherinfinibandtype       = $slurm::params::acctgatherinfinibandtype,
+  String  $acctgatherprofiletype          = $slurm::params::acctgatherprofiletype,  String  $configdir                      = $slurm::params::configdir,
   String  $clustername                    = $slurm::params::clustername,
   String  $authtype                       = $slurm::params::authtype,
   String  $authinfo                       = $slurm::params::authinfo,
