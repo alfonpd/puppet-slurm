@@ -142,7 +142,10 @@ class slurm::params {
   # What level of association-based enforcement to impose on job submissions
   $accountingstoragetres   = ''
   $acct_storageenforce     = ['qos', 'limits', 'associations']
-  $acct_gatherenergytype   = 'none'
+  $acctgatherenergytype     = 'none'
+  $acctgatherfilesystemtype = 'none'
+  $acctgatherinfinibandtype = 'none'
+  $acctgatherprofiletype    = 'none'
   $batchstarttimeout       = 10
   $getenvtimeout           = 2
   $checkpointtype          = 'none'  # in ['blcr', 'none', 'ompi', 'poe']
