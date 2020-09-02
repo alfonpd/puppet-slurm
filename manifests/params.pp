@@ -455,6 +455,7 @@ $common_rpms_basename = [
   'slurm',           # Main RPM basename covering slurmd and slurmctld
   'slurm-contribs',  # Perl tool to print Slurm job state information
   'slurm-devel',     # Development package for Slurm
+  'slurm-libpmi',    # Slurm libpmi[2].so - PMI-1 and PMI-2 compatibility libraries
   #'slurm-lua',       # Slurm lua bindings
   #'slurm-munge',     # Slurm authentication and crypto implementation using Munge
   'slurm-pam_slurm', # PAM module for restricting access to compute nodes via Slurm
