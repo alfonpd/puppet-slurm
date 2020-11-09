@@ -194,8 +194,10 @@ inherits slurm
 
     # Eventually create the 'slurm'@'*' user with all rights
     unique([ $storagehost, $::hostname, $::fqdn]).each |String $host| {
-      mysql_user { "${storageuser}@${host}":
-        password_hash => mysql_password($storagepass),
+      if !defined(Mysql_user["${storageuser}@${host}"]) {
+        mysql_user { "${storageuser}@${host}":
+          password_hash => mysql_password($storagepass),
+        }
       }
       mysql_grant {  "${storageuser}@${host}/${storageloc}.*":
         privileges => ['ALL'],
