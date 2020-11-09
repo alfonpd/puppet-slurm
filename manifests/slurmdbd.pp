@@ -181,14 +181,17 @@ inherits slurm
 
       include ::mysql::server::account_security
     }
-    
-    mysql::db { $storageloc:
-      user     => $storageuser,
-      password => $storagepass,
-      host     => $dbdhost,
-      grant    => ['ALL'],
-      before   => File[$slurm::params::dbd_configfile],
+    # Job completion logging mechanism type
+    if ($slurm::jobcomptype and $slurm::jobcomptype == 'mysql' and $slurm::jobcomploc and (!empty($slurm::jobcomploc))) {
+      mysql::db { $slurm::jobcomploc :
+        user     => $storageuser,
+        password => $storagepass,
+        host     => $dbdhost,
+        grant    => ['ALL'],
+        before   => File[$slurm::params::dbd_configfile],
+      }
     }
+
     # Eventually create the 'slurm'@'*' user with all rights
     unique([ $storagehost, $::hostname, $::fqdn]).each |String $host| {
       mysql_user { "${storageuser}@${host}":
