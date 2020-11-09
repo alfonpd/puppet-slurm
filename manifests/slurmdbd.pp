@@ -193,20 +193,20 @@ inherits slurm
     }
 
     # Eventually create the 'slurm'@'*' user with all rights
-    unique([ $storagehost, $::hostname, $::fqdn]).each |String $host| {
+    # unique([ $storagehost, $::hostname, $::fqdn]).each |String $host| {
      # if !defined(Mysql_user["${storageuser}@${host}"]) {
      #   mysql_user { "${storageuser}@${host}":
      #     password_hash => mysql_password($storagepass),
      #   }
      # }
-      mysql_grant {  "${storageuser}@${host}/${storageloc}.*":
-        privileges => ['ALL'],
-        table      => "${storageloc}.*",
-        user       => "${storageuser}@${host}",
-        require    => Mysql_user["${storageuser}@${host}"],
-        before     => File[$slurm::params::dbd_configfile],
-      }
-    }
+     # mysql_grant {  "${storageuser}@${host}/${storageloc}.*":
+     #   privileges => ['ALL'],
+     #   table      => "${storageloc}.*",
+     #   user       => "${storageuser}@${host}",
+     #   require    => Mysql_user["${storageuser}@${host}"],
+     #   before     => File[$slurm::params::dbd_configfile],
+     # }
+    #}
   }
 
   # Now prepare the slurmdbd.conf
